@@ -1,0 +1,15 @@
+-------------------- Auto-Git Log --------------------
+		Thu Nov 12 2020 19:37:32 GMT-0500 (hora estándar de Colombia)
+------------------------------------------------------
+
+Modified files:
+
+
+Created files:
+* .autogit/autogit.json
+
+
+Deleted files:
+
+
+Renamed files:
