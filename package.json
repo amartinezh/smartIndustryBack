@@ -1,0 +1,48 @@
+{
+  "name": "smartIndustry",
+  "version": "1.0.0",
+  "description": "This is a nodeJs API, specially developed for work with smartIndustry",
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "ts-node ./src/server.ts",
+    "debug": "node --inspect -r ts-node/register src/server.ts",
+    "start": "nodemon ./src/server.ts",
+    "prod": "npm run build && npm run start"
+  },
+  "keywords": [
+    "amartinezh",
+    "amartinezh"
+  ],
+  "author": "Andrés Mauricio Martínez Hincapié <andres.martinez@ucp.edu.co> ",
+  "license": "GPL V3.0",
+  "dependencies": {
+    "@types/express": "^4.16.0",
+    "@types/mysql": "^2.15.5",
+    "async": "^3.0.1",
+    "axios": "^0.19.2",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.3",
+    "java.io": "^2.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.0.14",
+    "multer": "^1.4.1",
+    "mysql": "^2.16.0",
+    "nodemon": "^1.19.1",
+    "sharp": "^0.21.1",
+    "socket.io": "^2.3.0",
+    "typescript": "^3.0.3",
+    "uuid": "^3.3.2",
+    "woocommerce-api": "^1.4.2",
+    "wpapi": "^1.1.2"
+  },
+  "devDependencies": {
+    "@types/express-jwt": "0.0.42",
+    "@types/node": "^10.5.2",
+    "ts-node": "^7.0.1"
+  }
+}

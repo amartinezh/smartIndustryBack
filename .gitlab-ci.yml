@@ -1,0 +1,14 @@
+stages:
+  -init
+  -deploy
+
+hello:
+  stage: init
+  script:
+    - echo "hello world!"
+
+deploy:
+  stage: deploy
+  script:
+    - cd /var/www/html
+    -git pull <lo que sea>
