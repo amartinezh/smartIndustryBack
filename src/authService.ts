@@ -3,8 +3,9 @@ import * as jwt from 'jsonwebtoken'
 
 const auth = (req, res, next) => {
     var token = req.headers['authorization']
-    if (!token) {
-        let error: ErrorGrowPos = new Error('Token Not Found');
+    next()
+    /*if (!token) {
+        let error: ErrorGrowPos = new Error('Get out here!!');
         error.status = 401
         next(error);
         return;
@@ -20,7 +21,7 @@ const auth = (req, res, next) => {
             res.locals.user = user
             next()
         }
-    })
+    })*/
 }
 
 module.exports = auth

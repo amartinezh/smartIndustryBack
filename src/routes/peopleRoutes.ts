@@ -11,8 +11,7 @@ export class PeopleRoutes {
         
         app.use(cors());
 
-        app.route('/user')
-        .post(auth,this.peopleController.insertPeople)
+        app.route('/user').post(auth,this.peopleController.insertPeople)
 
         app.route('/user/get')
         .post(auth,this.peopleController.getPeople)

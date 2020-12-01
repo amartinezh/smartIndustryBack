@@ -1,19 +1,36 @@
 
 import * as mysql from "mysql";
+
 import * as util from "util";
 import { LogGrowPos } from "./models/smartIndustry/log";
 import { LogEnum } from "./models/smartIndustry/log.enum";
 import * as dotenv from 'dotenv'
-
+//import pool from './db/dev/pool';
+import { Pool, Client } from 'pg';
 
 export class DataBaseService {
     private log
     private static instance: DataBaseService;
     private connection;
 
+
     private constructor() {
         try {
             dotenv.config();
+
+            const pool = new Pool({
+                user: process.env.DBUSER,
+                host: process.env.HOST,
+                database: process.env.DATABASE,
+                password: process.env.PASSWORD,
+                port: 5432
+            });
+
+            pool.query('SELECT NOW()', (err, res) => {
+                console.log(err, res)
+                pool.end()
+              })
+
             this.connection = mysql.createPool({
                 connectionLimit: 100,
                 host: process.env.HOST,
@@ -21,7 +38,7 @@ export class DataBaseService {
                 password: process.env.PASSWORD,
                 database: process.env.DATABASE,
                 timezone: process.env.TIMEZONE,
-                
+
                 typeCast: function castField(field, useDefaultTypeCasting) {
                     // We only want to cast bit fields that have a single-bit in them. If the field
                     // has more than one bit, then we cannot assume it is supposed to be a Boolean.
@@ -58,7 +75,7 @@ export class DataBaseService {
             })
             this.log = new LogGrowPos()
         } catch (error) {
-            this.log.insertLog(LogEnum.ERROR, `${DataBaseService.name} -> ${this.constructor.name}: ${error}`)
+            //this.log.insertLog(LogEnum.ERROR, `${DataBaseService.name} -> ${this.constructor.name}: ${error}`)
             console.log('An error occurred while the connection was created ' + error + ` ${DataBaseService.name} -> constructor`);
         }
     }

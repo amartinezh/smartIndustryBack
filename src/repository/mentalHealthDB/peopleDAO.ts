@@ -24,11 +24,12 @@ export class PeopleDAOGrowPos {
 
     public async insertPeople(people: PeopleGrowPos) {
         try {
+            
             let id = uuid.v4();
             people.apppassword = bcrypt.hashSync(people.apppassword, 10)
             people.id = id;
             let con = await this.connection.getConnection()
-            let query = await con.query('INSERT INTO people SET ?', [people]);
+            //let query = await con.query('INSERT INTO people SET ?', [people]);
             con.release();
             return people
         } catch (error) {
