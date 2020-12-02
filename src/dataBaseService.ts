@@ -13,9 +13,9 @@ export class DataBaseService {
     private static instance: DataBaseService;
     private connection;
 
-
     private constructor() {
         try {
+
             dotenv.config();
 
             const pool = new Pool({
@@ -26,10 +26,22 @@ export class DataBaseService {
                 port: 5432
             });
 
+            // the pool will emit an error on behalf of any idle clients
+            // it contains if a backend error or network partition happens
+            pool.on('error', (err, client) => {
+                console.error('Unexpected error on idle client', err)
+                process.exit(-1)
+            });
+
+            pool.on('error', (err, client) => {
+                console.error('Unexpected error on idle client', err)
+                process.exit(-1)
+            });
+
             pool.query('SELECT NOW()', (err, res) => {
                 console.log(err, res)
                 pool.end()
-              })
+            })
 
             this.connection = mysql.createPool({
                 connectionLimit: 100,
@@ -96,7 +108,7 @@ export class DataBaseService {
         try {
             return new Promise((resolve, reject) => {
                 try {
-                    this.connection.getConnection((err, connection) => {
+                    this.pool.getConnection((err, connection) => {
                         if (err) {
                             reject(err);
                         }
