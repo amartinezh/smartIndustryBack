@@ -108,7 +108,7 @@ export class DataBaseService {
         try {
             return new Promise((resolve, reject) => {
                 try {
-                    this.pool.getConnection((err, connection) => {
+                    /*this.pool.getConnection((err, connection) => {
                         if (err) {
                             reject(err);
                         }
@@ -116,7 +116,7 @@ export class DataBaseService {
                         connection.beginTransaction = util.promisify(connection.beginTransaction).bind(connection)
                         connection.commit = util.promisify(connection.commit).bind(connection)
                         resolve(connection)
-                    });
+                    });*/
                 } catch (error) {
                     this.log.insertLog(LogEnum.ERROR, `${DataBaseService.name} -> ${this.getConnection.name} promise: ${error}`)
                 }
