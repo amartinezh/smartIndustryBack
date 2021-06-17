@@ -1,19 +1,24 @@
 
 import { DataBaseService } from '../../db/dev/dataBaseService';
 import * as uuid from "uuid";
-import { LogGrowPos } from '../../models/smartIndustry/log';
+import { Log } from '../../models/smartIndustry/log';
 import { LogEnum } from '../../models/smartIndustry/log.enum';
 
-export class LogDAOGrowPos {
+export class LogDAO {
 
     private connection;
     constructor() {
-        this.connection = DataBaseService.getInstance();
+        try {
+            this.connection = DataBaseService.getInstance();
+        } catch (error) {
+            console.log('An error occurred with getInstance() :' + error);
+            throw new Error(error)
+        }
     }
 
     public async insertLog(type: LogEnum, description: string) {
         try {
-            let log = new LogGrowPos()
+            let log = new Log()
             log.type = type
             log.description = description
             //log.user = user
@@ -22,7 +27,7 @@ export class LogDAOGrowPos {
             con.release()
             return query
         } catch (error) {
-            console.log('An error occurred while inserting a log :' + error + `: ${LogDAOGrowPos.name} -> ${this.insertLog.name}`);
+            console.log('An error occurred while inserting a log :' + error + `: ${LogDAO.name} -> ${this.insertLog.name}`);
             throw new Error(error)
         }
     }
@@ -37,7 +42,7 @@ export class LogDAOGrowPos {
             con.release()
             return query
         } catch (error) {
-            console.log('An error occurred while getting log :' + error + `: ${LogDAOGrowPos.name} -> ${this.getLog.name}`);
+            console.log('An error occurred while getting log :' + error + `: ${LogDAO.name} -> ${this.getLog.name}`);
             throw new Error(error)
         }
     }
@@ -53,7 +58,7 @@ export class LogDAOGrowPos {
             con.release()
             return query
         } catch (error) {
-            console.log('An error occurred while getting log :' + error + `: ${LogDAOGrowPos.name} -> ${this.getLogById.name}`);
+            console.log('An error occurred while getting log :' + error + `: ${LogDAO.name} -> ${this.getLogById.name}`);
             throw new Error(error)
         }
     }

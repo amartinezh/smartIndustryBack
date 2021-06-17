@@ -1,6 +1,6 @@
 
 import { Request, Response } from "express";
-import { PeopleDAOGrowPos } from "../repository/mentalHealthDB/peopleDAO";
+import { PeopleDAOGrowPos } from "../repository/IndustryBackDB/peopleDAO";
 import { Token } from "../models/interfaces/token.interface";
 import { ErrorGrowPos } from "../models/smartIndustry/error";
 import * as jwt from 'jsonwebtoken'
@@ -85,33 +85,4 @@ export class PeopleController {
 		}
 	}
 
-	public async getMenu(req: Request, res: Response, next) {
-		try {
-			res.send(await people.getMenu(req.body.id, req.body.op));
-		} catch (error) {
-			let err: ErrorGrowPos = new Error(error);
-			err.status = 500
-			next(err);
-			console.log(
-				"An error occurred while get menu :" +
-				error +
-				`: ${PeopleController.name} -> getMenu`
-			);
-		}
-	}
-
-	public async getSubMenu(req: Request, res: Response, next) {
-		try {
-			res.send(await people.getSubMenu(req.body.id));
-		} catch (error) {
-			let err: ErrorGrowPos = new Error(error);
-			err.status = 500
-			next(err);
-			console.log(
-				"An error occurred while get sub menu :" +
-				error +
-				`: ${PeopleController.name} -> getSubMenu`
-			);
-		}
-	}
 }

@@ -1,12 +1,13 @@
+
 import * as util from "util";
-import { LogDAO } from '../../repository/IndustryBackDB/logDAO';
+import { LogGrowPos } from "../../models/smartIndustry/log";
 import { LogEnum } from "../../models/smartIndustry/log.enum";
 import * as dotenv from 'dotenv'
 import { Pool, Client } from 'pg';
 
 export class DataBaseService {
-    private log: LogDAO;
-    public static instance: DataBaseService;
+    private log
+    private static instance: DataBaseService;
     private connection;
     private pool;
 
@@ -37,11 +38,9 @@ export class DataBaseService {
                 pool.end()
             })*/
 
-            
-            
         } catch (error) {
-            this.log = new LogDAO();
-            this.log.insertLog(LogEnum.ERROR, `${DataBaseService.name} -> ${this.constructor.name}: ${error}`)
+            this.log = new LogGrowPos()
+            //this.log.insertLog(LogEnum.ERROR, `${DataBaseService.name} -> ${this.constructor.name}: ${error}`)
             console.log('An error occurred while the connection was created ' + error + ` ${DataBaseService.name} -> constructor`);
         }
     }
@@ -58,7 +57,33 @@ export class DataBaseService {
         }
     }
 
-    public async query(sql, args) {
+    public getConnection() {
+        try {
+            return new Promise((resolve, reject) => {
+                try {
+<<<<<<< HEAD:src/db/dev/dataBaseService.ts
+                     this.pool.getConnection((err, connection) => {
+=======
+                    /*this.pool.getConnection((err, connection) => {
+>>>>>>> 6365fe3c3acaea66dd4096e5ddf23e0beac5c87e:src/dataBaseService.ts
+                        if (err) {
+                            reject(err);
+                        }
+                        connection.query = util.promisify(connection.query).bind(connection)
+                        connection.beginTransaction = util.promisify(connection.beginTransaction).bind(connection)
+                        connection.commit = util.promisify(connection.commit).bind(connection)
+                        resolve(connection)
+                    });*/
+                } catch (error) {
+                    this.log.insertLog(LogEnum.ERROR, `${DataBaseService.name} -> ${this.getConnection.name} promise: ${error}`)
+                }
+            });
+        } catch (error) {
+            this.log.insertLog(LogEnum.ERROR, `${DataBaseService.name} -> ${this.getConnection.name}: ${error}`)
+        }
+    }
+
+    public query(sql, args) {
         return new Promise((resolve, reject) => {
             this.connection.query(sql, args, (err, rows) => {
                 if (err)

@@ -1,4 +1,4 @@
-export class LogGrowPos {
+export class Log {
     id: number;
     datenew: Date;
 	user: string;

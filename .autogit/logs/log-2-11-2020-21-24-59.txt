@@ -1,0 +1,15 @@
+-------------------- Auto-Git Log --------------------
+		Wed Dec 02 2020 21:24:59 GMT-0500 (hora estándar de Colombia)
+------------------------------------------------------
+
+Modified files:
+
+
+Created files:
+* .autogit/logs/log-2-11-2020-20-54-52.txt
+
+
+Deleted files:
+
+
+Renamed files:

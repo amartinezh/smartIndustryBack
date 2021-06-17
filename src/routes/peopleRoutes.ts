@@ -25,10 +25,5 @@ export class PeopleRoutes {
         app.route('/user/delete')
         .post(auth,this.peopleController.deletePeople)
 
-        app.route('/user/get_menu')
-        .post(auth,this.peopleController.getMenu)
-
-        app.route('/user/get_sub_menu')
-        .post(auth,this.peopleController.getSubMenu)
     }
 }

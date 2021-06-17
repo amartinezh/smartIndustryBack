@@ -1,20 +1,17 @@
 
-import { LogGrowPos } from "./models/smartIndustry/log";
 import { LogEnum } from "./models/smartIndustry/log.enum";
 import * as socketio from "socket.io"
-import { ExternalPlatformDAOGrowPos } from "./repository/mentalHealthDB/external_platformDAO";
-import { LogDAOGrowPos } from "./repository/mentalHealthDB/logDAO";
+import { LogDAO } from "./repository/IndustryBackDB/logDAO";
 import { ExternalPlatformGrowPos } from "./models/smartIndustry/external_platform";
 import { resolve } from "url";
 
 const axios = require('axios');
-const external_platform = new ExternalPlatformDAOGrowPos()
 
 export class HttpRequestService {
 
     private static instance: HttpRequestService;
 
-    private log: LogDAOGrowPos
+    private log: LogDAO
     private host: string
     private api_key: string
     private headers: any
@@ -23,19 +20,7 @@ export class HttpRequestService {
     private constructor() {
         this.headers = {}
         this.headers['Access-Control-Allow-Origin'] = '*';
-        this.log = new LogDAOGrowPos()
-        this.getExternalPLatform()
-    }
-
-    private async getExternalPLatform() {
-        try {
-            let res = await external_platform.getExternalPlatform()
-            this.host = res[0].url
-            this.api_key = res[0].api_key
-            this.connectWithExternalPlatform()
-        } catch (error) {
-            this.log.insertLog(LogEnum.ERROR, `${HttpRequestService.name} -> ${this.getExternalPLatform.name}: ${error}`)
-        }
+        this.log = new LogDAO()
     }
 
     static getInstance() {
