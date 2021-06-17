@@ -1,5 +1,5 @@
 
-import { DataBaseService } from '../../dataBaseService';
+import { DataBaseService } from '../../db/dev/dataBaseService';
 import * as uuid from "uuid";
 import { LogGrowPos } from '../../models/smartIndustry/log';
 import { LogEnum } from '../../models/smartIndustry/log.enum';

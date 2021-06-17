@@ -18,7 +18,7 @@
 
 import * as express from "express";
 import * as bodyParser from "body-parser";
-import { DataBaseService } from './dataBaseService';
+import { DataBaseService } from './db/dev/dataBaseService';
 import { PeopleRoutes } from "./routes/peopleRoutes";
 import { ErrorHandler } from "./errorHandlerService";
 import { LogRoutes } from "./routes/logRoutes";
