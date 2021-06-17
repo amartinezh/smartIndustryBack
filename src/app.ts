@@ -1,20 +1,22 @@
 //    smartIndustry
-//    Copyright (c) 2020 smartIndustry
+//    Copyright (c) 2021 smartIndustry
 //
 //    This file is part of smartIndustry
+//    @uthor: Andrés Mauricio Martinez Hincapié
 //
-//    GrowPos is free software: you can redistribute it and/or modify
+//    smartIndustry is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
 //    the Free Software Foundation, either version 3 of the License, or
 //    (at your option) any later version.
 //
-//    GrowPos is distributed in the hope that it will be useful,
+//    smartIndustry is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //    GNU General Public License for more details.
 //
 //    You should have received a copy of the GNU General Public License
-//    along with GrowPos.  If not, see <http://www.gnu.org/licenses/>.
+//    along with smartIndustry.  If not, see <http://www.gnu.org/licenses/>.
+
 
 import * as express from "express";
 import * as bodyParser from "body-parser";
