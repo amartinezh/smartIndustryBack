@@ -24,7 +24,7 @@ import { LogEnum } from '../../models/smartIndustry/log.enum';
 import { LogDAO } from './logDAO';
 import * as bcrypt from 'bcrypt'
 
-export class PeopleDAOGrowPos {
+export class PeopleDAO {
 
     private log: LogDAO;
     private connection;
@@ -35,19 +35,17 @@ export class PeopleDAOGrowPos {
 
     public async insertPeople(people: People) {
         try {
-            let id = uuid.v4();
-            people.apppassword = bcrypt.hashSync(people.apppassword, 10)
-            people.id = id;
-            let con = await this.connection.getConnection()
-            //let query = await con.query('INSERT INTO people SET ?', [people]);
-            con.release();
-            return people
+            this.connection.pool.query('INSERT INTO adm.tbl_people (id, name, apppassword) VALUES ($1, $2, $3)', [people.id, people.name, people.apppassword], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                return results;
+              })
         } catch (error) {
-            this.log.insertLog(LogEnum.ERROR, `${PeopleDAOGrowPos.name} -> ${this.insertPeople.name}: ${error}`)
+            this.log.insertLog(LogEnum.ERROR, `${PeopleDAO.name} -> ${this.insertPeople.name}: ${error}`)
             throw new Error(error)
         }
     }
-
 
     public async getPeople() {
         try {
@@ -55,53 +53,46 @@ export class PeopleDAOGrowPos {
                 .catch(e => console.error(e.stack));
             return res;
         } catch (error) {
-
-            //this.log.insertLog(LogEnum.ERROR, `${PeopleDAOGrowPos.name} -> ${this.getPeople.name}: ${error}`)
+            this.log.insertLog(LogEnum.ERROR, `${PeopleDAO.name} -> ${this.getPeople.name}: ${error}`)
             throw new Error(error)
         }
     }
 
     public async getPeopleById(peopleId: People) {
         try {
-            var res = await this.connection.pool.query('SELECT id, name, apppassword FROM adm.tbl_people where id='+peopleId.id, "").then(res => { return res.rows[0] })
+            var res = await this.connection.pool.query('SELECT id, name, apppassword FROM adm.tbl_people where id = $1', [peopleId.id], "").then(res => { return res.rows[0] })
                 .catch(e => console.error(e.stack));
             return res;
         } catch (error) {
-            this.log.insertLog(LogEnum.ERROR, `${PeopleDAOGrowPos.name} -> ${this.getPeopleById.name}: ${error}`)
+            this.log.insertLog(LogEnum.ERROR, `${PeopleDAO.name} -> ${this.getPeopleById.name}: ${error}`)
             return new Error(error);
         }
     }
 
     public async updatePeople(people: People) {
         try {
-            people.apppassword = bcrypt.hashSync(people.apppassword, 10)
-            let con = await this.connection.getConnection()
-            let query = await con.query(`UPDATE people SET
-                        name = ?,
-                        apppassword = ?,
-                        card = ?,
-                        visible = ?
-                        WHERE id = ?;`,
-                [people.name,
-                people.apppassword,
-                people.id]);
-            con.release();
-            return query
+            this.connection.pool.query('UPDATE adm.tbl_people SET name = $2, apppassword = $3  WHERE id = $1', [people.id, people.name, people.apppassword], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                return results;
+              });
         } catch (error) {
-            this.log.insertLog(LogEnum.ERROR, `${PeopleDAOGrowPos.name} -> ${this.updatePeople.name}: ${error}`)
+            this.log.insertLog(LogEnum.ERROR, `${PeopleDAO.name} -> ${this.updatePeople.name}: ${error}`)
             throw new Error(error)
         }
     }
 
     public async deletePeople(peopleId: string) {
         try {
-            let con = await this.connection.getConnection()
-            let query = await con.query(`DELETE FROM people 
-                        WHERE id = ?;`, [peopleId]);
-            con.release();
-            return query
+            this.connection.pool.query('DELETE FROM adm.tbl_people WHERE id = $1', [peopleId], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                return results;
+              });
         } catch (error) {
-            this.log.insertLog(LogEnum.ERROR, `${PeopleDAOGrowPos.name} -> ${this.deletePeople.name}: ${error}`)
+            this.log.insertLog(LogEnum.ERROR, `${PeopleDAO.name} -> ${this.deletePeople.name}: ${error}`)
             throw new Error(error)
         }
     }
@@ -132,7 +123,7 @@ export class PeopleDAOGrowPos {
                 return []
             }
         } catch (error) {
-            this.log.insertLog(LogEnum.ERROR, `${PeopleDAOGrowPos.name} -> ${this.val.name}: ${error}`)
+            this.log.insertLog(LogEnum.ERROR, `${PeopleDAO.name} -> ${this.val.name}: ${error}`)
             return new Error(error);
         }
     }

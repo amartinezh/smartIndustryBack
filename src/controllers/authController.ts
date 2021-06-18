@@ -18,13 +18,13 @@
 //    along with smartIndustry.  If not, see <http://www.gnu.org/licenses/>.
 
 import { Request, Response } from "express";
-import { PeopleDAOGrowPos } from "../repository/IndustryBackDB/peopleDAO";
+import { PeopleDAO } from "../repository/IndustryBackDB/peopleDAO";
 import { Token } from "../models/interfaces/token.interface";
-import { ErrorGrowPos } from "../models/smartIndustry/error";
+import { ErrorEnum } from "../models/smartIndustry/error";
 import * as jwt from 'jsonwebtoken'
 //import { } from "express-jwt";
 
-let people = new PeopleDAOGrowPos();
+let people = new PeopleDAO();
 
 export class AuthController {
 	/*-------------------------------- app --------------------------------------------------------*/
@@ -52,12 +52,12 @@ export class AuthController {
 					tokenReturn
 				});
 			} else {
-				let err: ErrorGrowPos = new Error('Incorrect user or password');
+				let err: ErrorEnum = new Error('Incorrect user or password');
 				err.status = 403
 				next(err);
 			}
 		} catch (error) {
-			let err: ErrorGrowPos = new Error(error);
+			let err: ErrorEnum = new Error(error);
 			err.status = 500
 			next(err);
 			console.log(

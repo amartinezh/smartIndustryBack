@@ -17,14 +17,14 @@
 //    You should have received a copy of the GNU General Public License
 //    along with smartIndustry.  If not, see <http://www.gnu.org/licenses/>.
 
-import { ErrorGrowPos } from "./models/smartIndustry/error";
+import { ErrorEnum } from "./models/smartIndustry/error";
 import * as jwt from 'jsonwebtoken'
 
 const auth = (req, res, next) => {
     var token = req.headers['authorization']
     next()
     /*if (!token) {
-        let error: ErrorGrowPos = new Error('Get out here!!');
+        let error: ErrorEnum = new Error('Get out here!!');
         error.status = 401
         next(error);
         return;
@@ -33,7 +33,7 @@ const auth = (req, res, next) => {
 
     jwt.verify(token, 'fcasc3210sdfjnmku+98KJH45f', (err, user) => {
         if (err) {
-            let error: ErrorGrowPos = new Error('Invalid Token');
+            let error: ErrorEnum = new Error('Invalid Token');
             error.status = 401
             next(error);
         } else {

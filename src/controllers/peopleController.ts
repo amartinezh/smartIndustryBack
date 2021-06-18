@@ -18,13 +18,13 @@
 //    along with smartIndustry.  If not, see <http://www.gnu.org/licenses/>.
 
 import { Request, Response } from "express";
-import { PeopleDAOGrowPos } from "../repository/IndustryBackDB/peopleDAO";
+import { PeopleDAO } from "../repository/IndustryBackDB/peopleDAO";
 import { Token } from "../models/interfaces/token.interface";
-import { ErrorGrowPos } from "../models/smartIndustry/error";
+import { ErrorEnum } from "../models/smartIndustry/error";
 import * as jwt from 'jsonwebtoken'
 //import { } from "express-jwt";
 
-let people = new PeopleDAOGrowPos();
+let people = new PeopleDAO();
 
 export class PeopleController {
 	/*-------------------------------- app --------------------------------------------------------*/
@@ -32,7 +32,7 @@ export class PeopleController {
 		try {
 			res.send(await people.insertPeople(req.body));
 		} catch (error) {
-			let err: ErrorGrowPos = new Error(error);
+			let err: ErrorEnum = new Error(error);
 			err.status = 400
 			next(err);
 			console.log(
@@ -47,7 +47,7 @@ export class PeopleController {
 		try {
 			res.send(await people.getPeople());
 		} catch (error) {
-			let err: ErrorGrowPos = new Error(error);
+			let err: ErrorEnum = new Error(error);
 			err.status = 404
 			next(err);
 			console.log(
@@ -62,7 +62,7 @@ export class PeopleController {
 		try {
 			res.send(await people.getPeopleById(req.body));
 		} catch (error) {
-			let err: ErrorGrowPos = new Error(error);
+			let err: ErrorEnum = new Error(error);
 			err.status = 404
 			next(err);
 			console.log(
@@ -77,7 +77,7 @@ export class PeopleController {
 		try {
 			res.send(await people.updatePeople(req.body));
 		} catch (error) {
-			let err: ErrorGrowPos = new Error(error);
+			let err: ErrorEnum = new Error(error);
 			err.status = 400
 			next(err);
 			console.log(
@@ -92,7 +92,7 @@ export class PeopleController {
 		try {
 			res.send(await people.deletePeople(req.body.id));
 		} catch (error) {
-			let err: ErrorGrowPos = new Error(error);
+			let err: ErrorEnum = new Error(error);
 			err.status = 500
 			next(err);
 			console.log(
